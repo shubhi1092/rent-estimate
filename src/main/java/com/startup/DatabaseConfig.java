@@ -1,4 +1,4 @@
-package com.practice.rent;
+package com.startup;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
