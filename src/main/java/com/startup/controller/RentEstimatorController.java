@@ -43,15 +43,21 @@ public class RentEstimatorController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        RentEstimator estimator = new RentEstimatorImpl();
-        User currentUser = userService.getUser(id);
-        currentUser.setAddress(user.getAddress());
+        User existingUser = userService.getUser(id);
+        if(user.getAddress() != null) {
+            existingUser.setAddress(user.getAddress());
+            userService.updateUser(existingUser);
+            RentEstimator estimator = new RentEstimatorImpl();
+            RentRange range = estimator.estimate(user.getAddress());
+            existingUser.setEstimatedRent(range);
+            userService.updateUser(existingUser);
+        }
 
-        RentRange range = estimator.estimate(currentUser.getAddress());
-        currentUser.setEstimatedRent(range);
-        currentUser.setExpectedRent(user.getExpectedRent());
+        if(user.getExpectedRent() != null) {
+            existingUser.setExpectedRent(user.getExpectedRent());
+            userService.updateUser(existingUser);
+        }
 
-        userService.updateUser(currentUser);
-        return new ResponseEntity<RentRange>(currentUser.getEstimatedRent(), HttpStatus.OK);
+        return new ResponseEntity<String>("Successfully submitted!", HttpStatus.OK);
     }
 }

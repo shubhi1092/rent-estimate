@@ -1,13 +1,12 @@
 package com.startup.common;
 
-import java.math.BigInteger;
 import java.util.Currency;
 
 public class CurrencyValue {
     private final Currency currency;
-    private final BigInteger value;
+    private final int value;
 
-    public CurrencyValue(Currency currency, BigInteger value) {
+    public CurrencyValue(Currency currency, int value) {
         this.currency = currency;
         this.value = value;
     }
@@ -16,7 +15,7 @@ public class CurrencyValue {
         return currency;
     }
 
-    public BigInteger getValue() {
+    public int getValue() {
         return value;
     }
 }
