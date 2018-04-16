@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS users(
     email_address VARCHAR(50),
     phone_number VARCHAR(20),
     address VARCHAR(500),
-    estimated_rent INTEGER,
-    expected_rent INTEGER
+    estimated_rent VARCHAR(100),
+    expected_rent VARCHAR(100)
 );
 INSERT INTO users(
     ip_address,
