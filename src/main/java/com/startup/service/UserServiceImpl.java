@@ -23,7 +23,8 @@ public class UserServiceImpl implements UserService {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("INSERT INTO users VALUES() RETURNING id");
+            String sql = String.format("INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number) VALUES(%s, %s, %s, %s, %s) RETURNING id;", "0.0.0.0", user.getFirstName(), user.getLastName(), user.getEmailAddress(), user.getPhoneNumber());
+            ResultSet rs = statement.executeQuery(sql);
             connection.close();
             return rs.getLong("Id");
         } catch (URISyntaxException e) {
