@@ -19,13 +19,15 @@ public class UserServiceImpl implements UserService {
         try {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
-            String sql = "INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number) VALUES(?, ?, ?, ?, ?) RETURNING id;";
+            String sql = "INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number, address) VALUES(?, ?, ?, ?, ?, ?, ?) RETURNING id;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "1.1.1.1");
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
             statement.setString(4, user.getEmailAddress());
             statement.setString(5, user.getPhoneNumber());
+            statement.setString(6, user.getAddress());
+            statement.setString(7, user.getEstimatedRent().toString());
             ResultSet rs = statement.executeQuery();
             long id = -1;
             if (rs.next()) {
