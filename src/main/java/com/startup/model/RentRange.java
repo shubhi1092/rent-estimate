@@ -1,4 +1,6 @@
-package com.startup.common;
+package com.startup.model;
+
+import com.startup.common.CurrencyValue;
 
 /**
  * Internal representation of rent range bounds

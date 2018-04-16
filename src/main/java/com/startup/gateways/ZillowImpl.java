@@ -1,7 +1,7 @@
 package com.startup.gateways;
 
 import com.startup.common.CurrencyValue;
-import com.startup.common.RentRange;
+import com.startup.model.RentRange;
 import com.startup.generated.zillow.Amount;
 import com.startup.generated.zillow.Searchresults;
 import com.startup.generated.zillow.SimpleProperty;

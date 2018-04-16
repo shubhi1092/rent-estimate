@@ -1,6 +1,6 @@
-package com.startup;
+package com.startup.service;
 
-import com.startup.common.RentRange;
+import com.startup.model.RentRange;
 import com.startup.gateways.ZillowImpl;
 import org.springframework.lang.NonNull;
 
