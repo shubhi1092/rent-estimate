@@ -27,7 +27,10 @@ public class UserServiceImpl implements UserService {
             statement.setString(4, user.getEmailAddress());
             statement.setString(5, user.getPhoneNumber());
             ResultSet rs = statement.executeQuery();
-            long id = rs.getLong("Id");
+            long id = -1;
+            if (rs.next()) {
+                id = rs.getLong("Id");
+            }
             connection.close();
             return id;
         } catch (URISyntaxException e) {
