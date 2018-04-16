@@ -43,13 +43,12 @@ public class RentEstimatorController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        User currentUser = userService.getUser(id);
         RentEstimator estimator = new RentEstimatorImpl();
-        RentRange range = estimator.estimate(user.getAddress());
-        user.setEstimatedRent(range);
-
+        User currentUser = userService.getUser(id);
         currentUser.setAddress(user.getAddress());
-        currentUser.setEstimatedRent(user.getEstimatedRent());
+
+        RentRange range = estimator.estimate(currentUser.getAddress());
+        currentUser.setEstimatedRent(range);
         currentUser.setExpectedRent(user.getExpectedRent());
 
         userService.updateUser(currentUser);
