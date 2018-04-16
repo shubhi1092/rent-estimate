@@ -19,15 +19,13 @@ public class UserServiceImpl implements UserService {
         try {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
-            String sql = "INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number, address, estimated_rent) VALUES(?, ?, ?, ?, ?, ?, ?) RETURNING id;";
+            String sql = "INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number) VALUES(?, ?, ?, ?, ?) RETURNING id;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "1.1.1.1");
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
             statement.setString(4, user.getEmailAddress());
             statement.setString(5, user.getPhoneNumber());
-            statement.setString(6, user.getAddress());
-            statement.setString(7, user.getEstimatedRent().toString());
             ResultSet rs = statement.executeQuery();
             long id = -1;
             if (rs.next()) {
@@ -45,8 +43,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
         // Update user object in db, requires id to be present
+        try {
+            BasicDataSource config = dbConfig.dataSource();
+            Connection connection = config.getConnection();
+            String sql = "UPDATE users(address, estimated_rent) VALUES(?, ?) WHERE id=?;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getAddress());
+            statement.setString(2, user.getEstimatedRent().toString());
+            statement.setLong(3, user.getId());
+            boolean result = statement.execute();
+            return result;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

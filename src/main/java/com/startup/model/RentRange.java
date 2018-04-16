@@ -25,6 +25,6 @@ public class RentRange {
 
     @Override
     public String toString() {
-        return String.format("%s %s-%s", lowerBound.getValue(), upperBound.getValue(), upperBound.getCurrency());
+        return String.format("%s %s-%s", upperBound.getCurrency(), lowerBound.getValue(), upperBound.getValue());
     }
 }

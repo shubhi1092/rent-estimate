@@ -10,11 +10,23 @@ public class User {
     private RentRange estimatedRent;
     private RentRange expectedRent;
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public User(String firstName, String lastName, String emailAddress, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
