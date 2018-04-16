@@ -6,10 +6,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 @Service("userService")
@@ -22,11 +19,17 @@ public class UserServiceImpl implements UserService {
         try {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
-            Statement statement = connection.createStatement();
-            String sql = String.format("INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number) VALUES(%s, %s, %s, %s, %s) RETURNING id;", "0.0.0.0", user.getFirstName(), user.getLastName(), user.getEmailAddress(), user.getPhoneNumber());
-            ResultSet rs = statement.executeQuery(sql);
+            String sql = "INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number) VALUES(?, ?, ?, ?, ?) RETURNING id;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(0, "1.1.1.1");
+            statement.setString(1, user.getFirstName());
+            statement.setString(0, user.getLastName());
+            statement.setString(0, user.getEmailAddress());
+            statement.setString(0, user.getPhoneNumber());
+            ResultSet rs = statement.executeQuery();
+            long id = rs.getLong("Id");
             connection.close();
-            return rs.getLong("Id");
+            return id;
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (SQLException e) {
