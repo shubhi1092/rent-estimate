@@ -95,12 +95,12 @@ public class UserServiceImpl implements UserService {
                 String emailAddress = rs.getString("email_address");
                 String phoneNumber = rs.getString("phone_number");
                 String address = rs.getString("address");
-                String rentCurrency = rs.getString("rent_currency");
+                String esRentCurrency= rs.getString("estimated_rent_currency");
                 int estimatedRentLowerBound = rs.getInt("estimated_rent_lower");
                 int estimatedRentUpperBound = rs.getInt("estimated_rent_upper");
+                String exRentCurrency= rs.getString("expected_rent_currency");
                 int expectedRentLowerBound = rs.getInt("expected_rent_lower");
                 int expectedRentUpperBound = rs.getInt("expected_rent_upper");
-                Currency currency = Currency.getInstance(rentCurrency);
                 user = new User();
                 user.setUserId(id);
                 user.setIpAddress(ipAddress);
@@ -109,8 +109,8 @@ public class UserServiceImpl implements UserService {
                 user.setEmailAddress(emailAddress);
                 user.setPhoneNumber(phoneNumber);
                 user.setAddress(address);
-                user.setExpectedRent(new RentRange(currency, estimatedRentLowerBound, estimatedRentUpperBound));
-                user.setExpectedRent(new RentRange(currency, expectedRentLowerBound, expectedRentUpperBound));
+                user.setExpectedRent(new RentRange(Currency.getInstance(esRentCurrency), estimatedRentLowerBound, estimatedRentUpperBound));
+                user.setExpectedRent(new RentRange(Currency.getInstance(exRentCurrency), expectedRentLowerBound, expectedRentUpperBound));
                 return user;
             }
             connection.close();
