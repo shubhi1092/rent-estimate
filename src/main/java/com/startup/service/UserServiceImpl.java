@@ -21,11 +21,11 @@ public class UserServiceImpl implements UserService {
             Connection connection = config.getConnection();
             String sql = "INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number) VALUES(?, ?, ?, ?, ?) RETURNING id;";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(0, "1.1.1.1");
-            statement.setString(1, user.getFirstName());
-            statement.setString(0, user.getLastName());
-            statement.setString(0, user.getEmailAddress());
-            statement.setString(0, user.getPhoneNumber());
+            statement.setString(1, "1.1.1.1");
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, user.getEmailAddress());
+            statement.setString(5, user.getPhoneNumber());
             ResultSet rs = statement.executeQuery();
             long id = rs.getLong("Id");
             connection.close();
