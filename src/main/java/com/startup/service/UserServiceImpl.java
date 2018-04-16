@@ -109,8 +109,14 @@ public class UserServiceImpl implements UserService {
                 user.setEmailAddress(emailAddress);
                 user.setPhoneNumber(phoneNumber);
                 user.setAddress(address);
-                user.setExpectedRent(new RentRange(Currency.getInstance(esRentCurrency), estimatedRentLowerBound, estimatedRentUpperBound));
-                user.setExpectedRent(new RentRange(Currency.getInstance(exRentCurrency), expectedRentLowerBound, expectedRentUpperBound));
+
+                if(esRentCurrency != null) {
+                    user.setExpectedRent(new RentRange(Currency.getInstance(esRentCurrency), estimatedRentLowerBound, estimatedRentUpperBound));
+                }
+
+                if(exRentCurrency != null) {
+                    user.setExpectedRent(new RentRange(Currency.getInstance(exRentCurrency), expectedRentLowerBound, expectedRentUpperBound));
+                }
                 return user;
             }
             connection.close();
