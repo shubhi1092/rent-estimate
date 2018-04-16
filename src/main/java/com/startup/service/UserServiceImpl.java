@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
             ResultSet rs = statement.executeQuery();
             long id = -1;
             if (rs.next()) {
-                id = rs.getLong("Id");
+                id = rs.getLong("id");
             }
             connection.close();
             return id;
