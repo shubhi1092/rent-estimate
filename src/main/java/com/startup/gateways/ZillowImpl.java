@@ -1,12 +1,10 @@
 package com.startup.gateways;
 
-import com.startup.common.CurrencyValue;
 import com.startup.model.RentRange;
 import com.startup.generated.zillow.Amount;
 import com.startup.generated.zillow.Searchresults;
 import com.startup.generated.zillow.SimpleProperty;
 import com.startup.generated.zillow.Zestimate;
-import com.startup.generated.zillow.Zestimate.ValuationRange;
 import org.springframework.lang.NonNull;
 
 import javax.xml.bind.JAXBContext;
@@ -39,16 +37,17 @@ public class ZillowImpl {
                 Zestimate zestimate = property.getZestimate();
                 if(rentZestimate != null) {
                     Zestimate.ValuationRange rentEstimateValuationRange = rentZestimate.getValuationRange();
-                    rentRange = convertValuationToRentRange(rentEstimateValuationRange);
+                    Currency currency = convertZillowCurrencyToCurrency(rentZestimate.getAmount().getCurrency());
+                    Amount low = rentEstimateValuationRange.getLow();
+                    Amount high = rentEstimateValuationRange.getHigh();
+                    rentRange = new RentRange(currency, low.getValue().intValue(), high.getValue().intValue());
                 } else {
                     Amount amount = zestimate.getAmount();
                     BigInteger rentEstimate = amount.getValue().multiply(BigInteger.valueOf((long)0.05));
                     BigInteger rentEstimateUpperBound = rentEstimate.multiply(BigInteger.valueOf((long)1.1));
                     BigInteger rentEstimateLowerBound = rentEstimate.multiply(BigInteger.valueOf((long)0.9));
                     Currency currency = convertZillowCurrencyToCurrency(amount.getCurrency());
-                    CurrencyValue lowerBound = new CurrencyValue(currency, rentEstimateLowerBound.intValue());
-                    CurrencyValue upperBound = new CurrencyValue(currency, rentEstimateUpperBound.intValue());
-                    rentRange = new RentRange(lowerBound, upperBound);
+                    rentRange = new RentRange(currency, rentEstimateLowerBound.intValue(), rentEstimateUpperBound.intValue());
                 }
             }
 
@@ -57,17 +56,6 @@ public class ZillowImpl {
         }
 
         return rentRange;
-    }
-
-    private RentRange convertValuationToRentRange(@NonNull ValuationRange valuationRange) {
-        Amount low = valuationRange.getLow();
-        Amount high = valuationRange.getHigh();
-        return new RentRange(convertAmountToCurrencyValue(low), convertAmountToCurrencyValue(high));
-    }
-
-    private CurrencyValue convertAmountToCurrencyValue(@NonNull Amount amount) {
-        Currency currency = convertZillowCurrencyToCurrency(amount.getCurrency());
-        return new CurrencyValue(currency, amount.getValue().intValue());
     }
 
     private Currency convertZillowCurrencyToCurrency(@NonNull com.startup.generated.zillow.Currency zillowCurrency) {

@@ -51,18 +51,20 @@ public class UserServiceImpl implements UserService {
         try {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
-            String sql = "UPDATE users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;";
+            String sql = "UPDATE users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmailAddress());
             statement.setString(4, user.getPhoneNumber());
             statement.setString(5, user.getAddress());
-            statement.setInt(6, user.getEstimatedRent().getLowerBound().getValue());
-            statement.setInt(7, user.getEstimatedRent().getUpperBound().getValue());
-            statement.setInt(8, user.getExpectedRent().getLowerBound().getValue());
-            statement.setInt(9, user.getEstimatedRent().getUpperBound().getValue());
-            statement.setLong(10, user.getUserId());
+            statement.setString(6, user.getEstimatedRent().getCurrency().toString());
+            statement.setInt(7, user.getEstimatedRent().getLowerBound());
+            statement.setInt(8, user.getEstimatedRent().getUpperBound());
+            statement.setString(6, user.getExpectedRent().getCurrency().toString());
+            statement.setInt(9, user.getExpectedRent().getLowerBound());
+            statement.setInt(10, user.getEstimatedRent().getUpperBound());
+            statement.setLong(11, user.getUserId());
             boolean result = statement.execute();
             connection.close();
             return result;
@@ -93,11 +95,11 @@ public class UserServiceImpl implements UserService {
                 String emailAddress = rs.getString("email_address");
                 String phoneNumber = rs.getString("phone_number");
                 String address = rs.getString("address");
+                String rentCurrency = rs.getString("rent_currency");
                 int estimatedRentLowerBound = rs.getInt("estimated_rent_lower");
                 int estimatedRentUpperBound = rs.getInt("estimated_rent_upper");
                 int expectedRentLowerBound = rs.getInt("expected_rent_lower");
                 int expectedRentUpperBound = rs.getInt("expected_rent_upper");
-                String rentCurrency = rs.getString("rent_currency");
                 Currency currency = Currency.getInstance(rentCurrency);
                 user = new User();
                 user.setUserId(id);
@@ -107,8 +109,8 @@ public class UserServiceImpl implements UserService {
                 user.setEmailAddress(emailAddress);
                 user.setPhoneNumber(phoneNumber);
                 user.setAddress(address);
-                user.setExpectedRent(new RentRange(new CurrencyValue(currency, estimatedRentLowerBound), new CurrencyValue(currency, estimatedRentUpperBound)));
-                user.setExpectedRent(new RentRange(new CurrencyValue(currency, expectedRentLowerBound), new CurrencyValue(currency, expectedRentUpperBound)));
+                user.setExpectedRent(new RentRange(currency, estimatedRentLowerBound, estimatedRentUpperBound));
+                user.setExpectedRent(new RentRange(currency, expectedRentLowerBound, expectedRentUpperBound));
                 return user;
             }
             connection.close();
