@@ -10,7 +10,7 @@ public class Sendgrid {
         Email from = new Email("no-reply@rent-estimate.com");
         String subject = "Updates to ";
         Email to = new Email(user.getEmailAddress());
-        Content content = new Content("text/plain", user.toString());
+        Content content = new Content("text/html", user.toString());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
