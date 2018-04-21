@@ -33,24 +33,23 @@ public class User {
                 "<th>Expected Rent</th>" +
                 "<th>Estimated Rent</th>" +
                 "</tr>");
-        buf.append("<tr><td>");
+        buf.append("<tr>");
+        buf.append("<td>");
         buf.append(userId);
-        buf.append("</td><td>");
-        buf.append("<tr><td>");
+        buf.append("</td>");
+        buf.append("<td>");
         buf.append(emailAddress);
-        buf.append("</td><td>");
-        buf.append("<tr><td>");
+        buf.append("</td>");
+        buf.append("<td>");
         buf.append(address);
-        buf.append("</td><td>");
-        buf.append("<tr><td>");
+        buf.append("</td>");
+        buf.append("<td>");
         buf.append(estimatedRent);
-        buf.append("</td><td>");
-        buf.append("<tr><td>");
+        buf.append("</td>");
+        buf.append("<td>");
         buf.append(expectedRent);
-        buf.append("</td><td>");
-        buf.append("<tr><td>");
-        buf.append(ipAddress);
-        buf.append("</td><td>");
+        buf.append("</td>");
+        buf.append("</tr>");
         buf.append("</table>" +
                 "</body>" +
                 "</html>");
