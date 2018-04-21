@@ -21,7 +21,40 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("UserID: {}\n EmailAddress: {} \n", userId, emailAddress);
+        StringBuilder buf = new StringBuilder();
+        buf.append("<html>" +
+                "<body>" +
+                "<table>" +
+                "<tr>" +
+                "<th>UserID</th>" +
+                "<th>Email Address</th>" +
+                "<th>Address</th>" +
+                "<th>Estimated Rent</th>" +
+                "<th>Expected Rent</th>" +
+                "<th>Estimated Rent</th>" +
+                "</tr>");
+        buf.append("<tr><td>");
+        buf.append(userId);
+        buf.append("</td><td>");
+        buf.append("<tr><td>");
+        buf.append(emailAddress);
+        buf.append("</td><td>");
+        buf.append("<tr><td>");
+        buf.append(address);
+        buf.append("</td><td>");
+        buf.append("<tr><td>");
+        buf.append(estimatedRent);
+        buf.append("</td><td>");
+        buf.append("<tr><td>");
+        buf.append(expectedRent);
+        buf.append("</td><td>");
+        buf.append("<tr><td>");
+        buf.append(ipAddress);
+        buf.append("</td><td>");
+        buf.append("</table>" +
+                "</body>" +
+                "</html>");
+        return buf.toString();
     }
 
     public long getUserId() {
