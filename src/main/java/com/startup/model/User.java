@@ -19,6 +19,11 @@ public class User {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return String.format("UserID: {}\n EmailAddress: {} \n", userId, emailAddress);
+    }
+
     public long getUserId() {
         return userId;
     }

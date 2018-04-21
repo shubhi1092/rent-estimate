@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.startup.gateways.Sendgrid;
 
 @RestController
 @RequestMapping("/")
@@ -38,6 +39,9 @@ public class RentEstimatorController {
 
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
+
+        // Send updates to user
+        Sendgrid.sendEmail(user);
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
@@ -58,6 +62,8 @@ public class RentEstimatorController {
             userService.updateUser(existingUser);
         }
 
+        // Send updates to user
+        Sendgrid.sendEmail(user);
         return new ResponseEntity<String>("Successfully submitted!", HttpStatus.OK);
     }
 }
