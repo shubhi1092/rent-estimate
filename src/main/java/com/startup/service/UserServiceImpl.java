@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
                 statement.setString(8, null);
             }
             RentRange expectedRent = user.getExpectedRent();
-            if (estimatedRent != null) {
+            if (expectedRent != null) {
                 Currency expectedRentCurrency = expectedRent.getCurrency();
                 if (expectedRentCurrency != null) {
                     statement.setString(9, expectedRentCurrency.toString());
