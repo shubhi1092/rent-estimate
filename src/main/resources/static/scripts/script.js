@@ -12,3 +12,4 @@ $('form[name="signupform"]').submit(function(){
             alert(data)
         }
     });
+})
