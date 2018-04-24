@@ -63,7 +63,7 @@ public class RentEstimatorController {
         }
 
         // Send updates to user
-        Sendgrid.sendEmail(user);
+        Sendgrid.sendEmail(existingUser);
         return new ResponseEntity<String>("Successfully submitted!", HttpStatus.OK);
     }
 }
