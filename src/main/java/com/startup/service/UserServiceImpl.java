@@ -51,7 +51,9 @@ public class UserServiceImpl implements UserService {
         try {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
-            String sql = "UPDATE users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;";
+            //String sql = "UPDATE users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;";
+            String sql = "UPDATE users SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, address = ?, estimated_rent_currency = ?, estimated_rent_lower = ?, estimated_rent_upper = ?, expected_rent_currency = ?, expected_rent_lower = ?, expected_rent_upper = ? WHERE id=?;";
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
