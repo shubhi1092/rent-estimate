@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserService {
                 statement.setString(11, null);
             }
             statement.setLong(12, user.getUserId());
+            System.out.println(statement.toString());
             boolean result = statement.execute();
             connection.close();
             return result;
