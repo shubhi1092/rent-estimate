@@ -30,4 +30,14 @@ public class RentRange {
     public int getUpperBound() {
         return upperBound;
     }
+
+    @Override
+    public String toString() {
+        if (this == null) {
+            return null;
+        } else {
+            String range = String.format("(%d - %d) %s", lowerBound, upperBound, currency.toString());
+            return range;
+        }
+    }
 }
