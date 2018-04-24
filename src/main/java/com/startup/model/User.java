@@ -31,7 +31,6 @@ public class User {
                 "<th>Address</th>" +
                 "<th>Estimated Rent</th>" +
                 "<th>Expected Rent</th>" +
-                "<th>Estimated Rent</th>" +
                 "</tr>");
         buf.append("<tr>");
         buf.append("<td>");
