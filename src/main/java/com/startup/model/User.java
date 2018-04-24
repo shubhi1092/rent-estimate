@@ -38,8 +38,6 @@ public class User {
         buf.append(userId);
         buf.append("</td>");
         buf.append("<td>");
-        buf.append("<tr>");
-        buf.append("<td>");
         buf.append(ipAddress);
         buf.append("</td>");
         buf.append("<td>");
