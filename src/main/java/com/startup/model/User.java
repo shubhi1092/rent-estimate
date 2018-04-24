@@ -22,7 +22,7 @@ public class User {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append("<html>" +
+        buf.append("<!DOCTYPE HTML><html lang=\"en\"><title>Test</title" +
                 "<body>" +
                 "<table>" +
                 "<tr>" +
