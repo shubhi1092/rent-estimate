@@ -8,10 +8,9 @@ import java.io.IOException;
 public class Sendgrid {
     public static void sendEmail(User user) {
         Email from = new Email("no-reply@rent-estimate.com");
-        String subject = "Updates to ";
         Email to = new Email(user.getEmailAddress());
         Content content = new Content("text/html", user.toString());
-        Mail mail = new Mail(from, subject, to, content);
+        Mail mail = new Mail(from, "Submitted details to rent-estimate!", to, content);
 
         SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
         Request request = new Request();

@@ -40,8 +40,6 @@ public class RentEstimatorController {
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 
-        // Send updates to user
-        Sendgrid.sendEmail(user);
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
