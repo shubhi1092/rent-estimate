@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
                 statement.setInt(8, estimatedRent.getUpperBound());
             } else {
                 statement.setString(6, null);
-                statement.setString(7, null);
-                statement.setString(8, null);
+                statement.setObject(7, null);
+                statement.setObject(8, null);
             }
             RentRange expectedRent = user.getExpectedRent();
             if (expectedRent != null) {
@@ -87,8 +87,8 @@ public class UserServiceImpl implements UserService {
                 statement.setInt(11, expectedRent.getUpperBound());
             } else {
                 statement.setString(9, null);
-                statement.setString(10, null);
-                statement.setString(11, null);
+                statement.setObject(10, null);
+                statement.setObject(11, null);
             }
             statement.setLong(12, user.getUserId());
             System.out.println(statement.toString());
