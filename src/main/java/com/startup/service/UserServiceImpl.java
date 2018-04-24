@@ -51,20 +51,32 @@ public class UserServiceImpl implements UserService {
         try {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
-            String sql = "UPDATE users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;";
+            String sql = "UPDATE users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmailAddress());
             statement.setString(4, user.getPhoneNumber());
             statement.setString(5, user.getAddress());
-            statement.setString(6, user.getEstimatedRent().getCurrency().toString());
-            statement.setInt(7, user.getEstimatedRent().getLowerBound());
-            statement.setInt(8, user.getEstimatedRent().getUpperBound());
-            statement.setString(6, user.getExpectedRent().getCurrency().toString());
-            statement.setInt(9, user.getExpectedRent().getLowerBound());
-            statement.setInt(10, user.getEstimatedRent().getUpperBound());
-            statement.setLong(11, user.getUserId());
+            RentRange estimatedRent = user.getEstimatedRent();
+            if (estimatedRent != null) {
+                Currency estimatedRentCurrency = estimatedRent.getCurrency();
+                if (estimatedRentCurrency != null) {
+                    statement.setString(6, estimatedRentCurrency.toString());
+                }
+                statement.setInt(7, estimatedRent.getLowerBound());
+                statement.setInt(8, estimatedRent.getUpperBound());
+            }
+            RentRange expectedRent = user.getExpectedRent();
+            if (estimatedRent != null) {
+                Currency expectedRentCurrency = expectedRent.getCurrency();
+                if (expectedRentCurrency != null) {
+                    statement.setString(9, expectedRentCurrency.toString());
+                }
+                statement.setInt(10, expectedRent.getLowerBound());
+                statement.setInt(11, expectedRent.getUpperBound());
+            }
+            statement.setLong(12, user.getUserId());
             boolean result = statement.execute();
             connection.close();
             return result;
