@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
                 user.setAddress(address);
 
                 if(esRentCurrency != null) {
-                    user.setExpectedRent(new RentRange(Currency.getInstance(esRentCurrency), estimatedRentLowerBound, estimatedRentUpperBound));
+                    user.setEstimatedRent(new RentRange(Currency.getInstance(esRentCurrency), estimatedRentLowerBound, estimatedRentUpperBound));
                 }
 
                 if(exRentCurrency != null) {
