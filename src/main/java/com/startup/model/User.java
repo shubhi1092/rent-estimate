@@ -24,7 +24,7 @@ public class User {
         StringBuilder buf = new StringBuilder();
         buf.append("<html>" +
                 "<body>" +
-                "<table border='1'>" +
+                "<table>" +
                 "<tr>" +
                 "<th>UserID</th>" +
                 "<th>Email Address</th>" +
