@@ -56,6 +56,7 @@ public class User {
         buf.append("</table>" +
                 "</body>" +
                 "</html>");
+        System.out.println(buf.toString());
         return buf.toString();
     }
 
