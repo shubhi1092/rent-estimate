@@ -13,8 +13,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.startup.gateways.Sendgrid;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/")
@@ -23,7 +27,7 @@ public class RentEstimatorController {
     UserService userService;
 
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody User user, UriComponentsBuilder builder) {
+    public ResponseEntity<?> createUser(@RequestBody User user, UriComponentsBuilder builder, HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
         Validator validator = new EmailValidatorImpl();
         boolean isValid = validator.validate(user.getEmailAddress());
@@ -37,6 +41,7 @@ public class RentEstimatorController {
             return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
         }
 
+        user.setIpAddress(request.getRemoteAddr());
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 

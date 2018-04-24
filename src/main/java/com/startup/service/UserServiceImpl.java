@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
             Connection connection = config.getConnection();
             String sql = "INSERT INTO users(ip_address, first_name, last_name, email_address, phone_number) VALUES(?, ?, ?, ?, ?) RETURNING id;";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, "1.1.1.1");
+            statement.setString(1, user.getIpAddress());
             statement.setString(2, user.getFirstName());
             statement.setString(3, user.getLastName());
             statement.setString(4, user.getEmailAddress());
@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
         try {
             BasicDataSource config = dbConfig.dataSource();
             Connection connection = config.getConnection();
-            //String sql = "UPDATE users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;";
             String sql = "UPDATE users SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, address = ?, estimated_rent_currency = ?, estimated_rent_lower = ?, estimated_rent_upper = ?, expected_rent_currency = ?, expected_rent_lower = ?, expected_rent_upper = ? WHERE id=?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
