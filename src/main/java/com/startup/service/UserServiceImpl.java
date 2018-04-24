@@ -63,18 +63,30 @@ public class UserServiceImpl implements UserService {
                 Currency estimatedRentCurrency = estimatedRent.getCurrency();
                 if (estimatedRentCurrency != null) {
                     statement.setString(6, estimatedRentCurrency.toString());
+                } else {
+                    statement.setString(6, null);
                 }
                 statement.setInt(7, estimatedRent.getLowerBound());
                 statement.setInt(8, estimatedRent.getUpperBound());
+            } else {
+                statement.setString(6, null);
+                statement.setString(7, null);
+                statement.setString(8, null);
             }
             RentRange expectedRent = user.getExpectedRent();
             if (estimatedRent != null) {
                 Currency expectedRentCurrency = expectedRent.getCurrency();
                 if (expectedRentCurrency != null) {
                     statement.setString(9, expectedRentCurrency.toString());
+                } else {
+                    statement.setString(9, null);
                 }
                 statement.setInt(10, expectedRent.getLowerBound());
                 statement.setInt(11, expectedRent.getUpperBound());
+            } else {
+                statement.setString(9, null);
+                statement.setString(10, null);
+                statement.setString(11, null);
             }
             statement.setLong(12, user.getUserId());
             boolean result = statement.execute();
