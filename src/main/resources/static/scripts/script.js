@@ -13,8 +13,11 @@ $('form[name="signupform"]').submit(function(event){
         dataType: 'json',
         data: JSON.stringify(obj),
         contentType : 'application/json',
-        success: function(data) {
-            alert(data)
+        success: function(data, status, response) {
+            console.log(response);
+        },
+        error: function(){
+            console.log("Error Occured");
         }
     });
 

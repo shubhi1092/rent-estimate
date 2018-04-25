@@ -32,20 +32,20 @@ public class RentEstimatorController {
         Validator validator = new EmailValidatorImpl();
         boolean isValid = validator.validate(user.getEmailAddress());
         if(!isValid) {
-            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Error", headers, HttpStatus.BAD_REQUEST);
         }
 
         validator = new PhoneValidatorImpl();
         isValid = validator.validate(user.getPhoneNumber());
         if(!isValid) {
-            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Error", headers, HttpStatus.BAD_REQUEST);
         }
 
         user.setIpAddress(request.getRemoteAddr());
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<String>("Success", headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
