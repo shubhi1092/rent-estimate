@@ -1,5 +1,6 @@
 package com.startup.controller;
 
+import com.google.gson.JsonObject;
 import com.startup.common.EmailValidatorImpl;
 import com.startup.common.PhoneValidatorImpl;
 import com.startup.common.Validator;
@@ -34,21 +35,26 @@ public class RentEstimatorController {
 
         Validator validator = new EmailValidatorImpl();
         boolean isValid = validator.validate(user.getEmailAddress());
+        JsonObject jsonObject = new JsonObject();
+
         if(!isValid) {
-            return new ResponseEntity<String>("Error", headers, HttpStatus.BAD_REQUEST);
+            jsonObject.addProperty("message","Error");
+            return new ResponseEntity<JsonObject>(jsonObject, headers, HttpStatus.BAD_REQUEST);
         }
 
         validator = new PhoneValidatorImpl();
         isValid = validator.validate(user.getPhoneNumber());
         if(!isValid) {
-            return new ResponseEntity<String>("Error", headers, HttpStatus.BAD_REQUEST);
+            jsonObject.addProperty("message","Error");
+            return new ResponseEntity<JsonObject>(jsonObject, headers, HttpStatus.BAD_REQUEST);
         }
 
         user.setIpAddress(request.getRemoteAddr());
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 
-        return new ResponseEntity<String>("Success", headers, HttpStatus.CREATED);
+        jsonObject.addProperty("message","Success");
+        return new ResponseEntity<JsonObject>(jsonObject, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
@@ -70,6 +76,9 @@ public class RentEstimatorController {
 
         // Send updates to user
         Sendgrid.sendEmail(existingUser);
-        return new ResponseEntity<String>("Successfully submitted!", HttpStatus.OK);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("message","Success");
+        jsonObject.addProperty("estimatedRent",existingUser.getEstimatedRent().toString());
+        return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
     }
 }
