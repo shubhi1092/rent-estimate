@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.startup.gateways.Sendgrid;
 
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/")
+@EnableWebMvc
 public class RentEstimatorController {
     @Autowired
     UserService userService;
