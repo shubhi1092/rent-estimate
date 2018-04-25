@@ -9,6 +9,7 @@ import com.startup.model.RentRange;
 import com.startup.model.User;
 import com.startup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/")
-@EnableWebMvc
+@EnableAutoConfiguration
 public class RentEstimatorController {
     @Autowired
     UserService userService;
