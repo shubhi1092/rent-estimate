@@ -1,7 +1,11 @@
 
 $('form[name="signupform"]').submit(function(){
 
-    var obj = $('form[name="signupform"]').serializeJSON();
+    var obj = new Object();
+    obj.firstName = ('input[name="firstName"]').val();
+    obj.lastName = ('input[name="lastName"]').val();
+    obj.emailAddress = ('input[name="emailAddress"]').val();
+    obj.phoneNumber = ('input[name="phoneNumber"]').val();
 
     $.ajax({
         type: 'POST',
