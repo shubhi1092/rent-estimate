@@ -9,7 +9,6 @@ import com.startup.model.RentRange;
 import com.startup.model.User;
 import com.startup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,6 +45,7 @@ public class RentEstimatorController {
         user.setIpAddress(request.getRemoteAddr());
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
+
         return new ResponseEntity<String>("Success", headers, HttpStatus.CREATED);
     }
 

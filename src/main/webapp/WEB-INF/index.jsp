@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +26,9 @@
 
         <label for="phoneNumber"><b>Phone Number</b></label>
         <input type="text" placeholder="Phone Number" name="phoneNumber" required><br>
+
+        <label for="address"><b>Address</b></label>
+        <input type="text" placeholder="Adress" name="address" required><br>
 
         <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
