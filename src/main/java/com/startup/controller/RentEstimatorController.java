@@ -36,20 +36,20 @@ public class RentEstimatorController {
         boolean isValid = validator.validate(user.getEmailAddress());
 
         if(!isValid) {
-            return new ResponseEntity<String>("{'message':'Error'}", headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
         }
 
         validator = new PhoneValidatorImpl();
         isValid = validator.validate(user.getPhoneNumber());
         if(!isValid) {
-            return new ResponseEntity<String>("{'message':'Error'}", headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
         }
 
         user.setIpAddress(request.getRemoteAddr());
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 
-        return new ResponseEntity<String>("{'message':'Success'}", headers, HttpStatus.CREATED);
+        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
@@ -71,6 +71,6 @@ public class RentEstimatorController {
 
         // Send updates to user
         Sendgrid.sendEmail(existingUser);
-        return new ResponseEntity<String>(String.format("{'message':'Success','estimatedRent':%s}",existingUser.getEstimatedRent().toString()), HttpStatus.OK);
+        return new ResponseEntity<User>(existingUser, HttpStatus.OK);
     }
 }
