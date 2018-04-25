@@ -7,6 +7,7 @@ $('form[name="signupform"]').submit(function(event){
     obj.emailAddress = $('input[name="emailAddress"]').val();
     obj.phoneNumber = $('input[name="phoneNumber"]').val();
 
+
     $.ajax({
         type: 'POST',
         url: '/user/',
@@ -14,6 +15,7 @@ $('form[name="signupform"]').submit(function(event){
         data: JSON.stringify(obj),
         contentType : 'application/json',
         success: function(data, status, response) {
+
             console.log(response);
         },
         error: function(){
