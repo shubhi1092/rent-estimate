@@ -1,9 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/resources/css/styles.css">
     <title>Rent Estimator App</title>
 </head>
 <body>
@@ -38,6 +39,6 @@
     </div>
 </form>
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="scripts/script.js"></script>
+<script type="text/javascript" src="/resources/scripts/script.js"></script>
 </body>
 </html>
