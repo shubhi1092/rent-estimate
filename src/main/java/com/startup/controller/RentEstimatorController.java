@@ -27,7 +27,7 @@ public class RentEstimatorController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/user/", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createUser(@RequestBody User user, UriComponentsBuilder builder, HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_PLAIN);
@@ -49,10 +49,10 @@ public class RentEstimatorController {
         long id = userService.saveUser(user);
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<User>(user, headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) {
         User existingUser = userService.getUser(id);
         if(user.getAddress() != null) {
