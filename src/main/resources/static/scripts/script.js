@@ -1,5 +1,5 @@
 
-$('form[name="signupform"]').submit(function(){
+$('form[name="signupform"]').submit(function(event){
 
     var obj = new Object();
     obj.firstName = $('input[name="firstName"]').val();
@@ -17,4 +17,6 @@ $('form[name="signupform"]').submit(function(){
             alert(data)
         }
     });
+
+    event.preventDefault();
 })
