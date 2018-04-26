@@ -34,8 +34,7 @@ public class RentEstimatorController {
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody User user, UriComponentsBuilder builder, HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_PLAIN);
-
+        
         Validator validator = new EmailValidatorImpl();
         boolean isValid = validator.validate(user.getEmailAddress());
         JsonObject jsonObject = new JsonObject();
