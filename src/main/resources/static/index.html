@@ -18,6 +18,7 @@
 <body>
 
 <form ID="regForm" name="signupform" style="border:1px solid #ccc">
+    <input oninput="this.className = ''" type="text" id="userId" name="userId">
     <div class="tab">
         <h1>Sign Up</h1>
         <p>Please fill in this form to create an account.</p>
@@ -85,8 +86,8 @@ function showTab(n) {
   // This function will display the specified tab of the form...
   var x = document.getElementsByClassName("tab");
   x[n].style.display = "block";
+  document.getElementById("userId").style.display = "none";
   //... and fix the Previous/Next buttons:
-  var id = 0;
   if ( n == 0 ){
     document.getElementById("nextBtn").onclick = function() {
         var obj = new Object();
@@ -103,7 +104,7 @@ function showTab(n) {
                 success: function(data, status, response) {
                     console.log(data);
                     console.log(response);
-                    id = data.id;
+                    document.getElementById("userId").value = data.id;
                     nextPrev(1);
                 },
                 error: function(){
@@ -118,7 +119,7 @@ function showTab(n) {
         obj.address = $('input[name="address"]').val();
         $.ajax({
                 type: 'PUT',
-                url: '/user/' + id,
+                url: '/user/' +  $('input[name="userId"]').val(),
                 dataType: 'json',
                 data: JSON.stringify(obj),
                 contentType : 'application/json',
@@ -140,7 +141,7 @@ function showTab(n) {
         obj.firstName = $('input[name="expectedRent"]').val();
         $.ajax({
                 type: 'PUT',
-                url: '/user/' + id,
+                url: '/user/' +  $('input[name="userId"]').val(),
                 dataType: 'json',
                 data: JSON.stringify(obj),
                 contentType : 'application/json',
