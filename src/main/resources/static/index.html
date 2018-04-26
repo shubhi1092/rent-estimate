@@ -55,8 +55,8 @@
         <input oninput="this.className = ''" type="text" name="estimatedRent" id="estimatedRent" disabled><br><br><br>
 
         <label for="expectedRent"><b>Expected Rent Range(in USD)</b></label><br>
-        <input oninput="this.className = ''" type="text" placeholder="Lower Bound" name="expectedRent" required>
-        <input oninput="this.className = ''" type="text" placeholder="Upper Bound" name="expectedRent" required><br>
+        <input oninput="this.className = ''" type="text" placeholder="Lower Bound" name="expectedRentLower" required>
+        <input oninput="this.className = ''" type="text" placeholder="Upper Bound" name="expectedRentUpper" required><br>
     </div>
     <div class="tab">
         <h1>Success!</h1>
@@ -137,8 +137,12 @@ function showTab(n) {
   }
   else if ( n == 2 ) {
     document.getElementById("nextBtn").onclick = function() {
+        var rent = new Object();
+        rent.lowerBound = $('input[name="expectedRentLower"]').val();
+        rent.upperBound = $('input[name="expectedRentUpper"]').val();
+        rent.currency = 'USD';
         var obj = new Object();
-        obj.firstName = $('input[name="expectedRent"]').val();
+        obj.expectedRent = rent;
         $.ajax({
                 type: 'PUT',
                 url: '/user/' +  $('input[name="userId"]').val(),
