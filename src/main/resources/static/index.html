@@ -117,7 +117,7 @@ function showTab(n) {
         var obj = new Object();
         obj.address = $('input[name="address"]').val();
         $.ajax({
-                type: 'POST',
+                type: 'PUT',
                 url: '/user/' + id,
                 dataType: 'json',
                 data: JSON.stringify(obj),
@@ -139,7 +139,7 @@ function showTab(n) {
         var obj = new Object();
         obj.firstName = $('input[name="expectedRent"]').val();
         $.ajax({
-                type: 'POST',
+                type: 'PUT',
                 url: '/user/' + id,
                 dataType: 'json',
                 data: JSON.stringify(obj),
