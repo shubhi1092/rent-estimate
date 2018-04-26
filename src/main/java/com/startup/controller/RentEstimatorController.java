@@ -55,6 +55,7 @@ public class RentEstimatorController {
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 
         jsonObject.addProperty("message", "Success");
+        jsonObject.addProperty("id",String.valueOf(id));
         return new ResponseEntity<String>(jsonObject.toString(), headers, HttpStatus.CREATED);
     }
 

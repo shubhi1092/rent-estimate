@@ -17,7 +17,7 @@
 </style>
 <body>
 
-<form ID="regForm" name="signupform" action="/user/" method="POST" style="border:1px solid #ccc">
+<form ID="regForm" name="signupform" style="border:1px solid #ccc">
     <div class="tab">
         <h1>Sign Up</h1>
         <p>Please fill in this form to create an account.</p>
@@ -51,7 +51,7 @@
         <hr>
 
         <label for="estimatedRent"><b>Estimated Rent Range: </b></label>
-        <label for="estimatedRentValue"><b></b></label><br><br><br>
+        <input oninput="this.className = ''" type="text" name="estimatedRent" id="estimatedRent" disabled><br><br><br>
 
         <label for="expectedRent"><b>Expected Rent Range(in USD)</b></label><br>
         <input oninput="this.className = ''" type="text" placeholder="Lower Bound" name="expectedRent" required>
@@ -86,6 +86,7 @@ function showTab(n) {
   var x = document.getElementsByClassName("tab");
   x[n].style.display = "block";
   //... and fix the Previous/Next buttons:
+  var id = 0;
   if ( n == 0 ){
     document.getElementById("nextBtn").onclick = function() {
         var obj = new Object();
@@ -102,6 +103,51 @@ function showTab(n) {
                 success: function(data, status, response) {
                     console.log(data);
                     console.log(response);
+                    id = data.id;
+                    nextPrev(1);
+                },
+                error: function(){
+                    console.log("Error Occured");
+                }
+            });
+        };
+  }
+  else if ( n==1 ) {
+    document.getElementById("nextBtn").onclick = function() {
+        var obj = new Object();
+        obj.address = $('input[name="address"]').val();
+        $.ajax({
+                type: 'POST',
+                url: '/user/' + id,
+                dataType: 'json',
+                data: JSON.stringify(obj),
+                contentType : 'application/json',
+                success: function(data, status, response) {
+                    console.log(data);
+                    console.log(response);
+                    document.getElementById("estimatedRent").value = data.estimatedRent;
+                    nextPrev(1);
+                },
+                error: function(){
+                    console.log("Error Occured");
+                }
+            });
+        };
+  }
+  else if ( n == 2 ) {
+    document.getElementById("nextBtn").onclick = function() {
+        var obj = new Object();
+        obj.firstName = $('input[name="expectedRent"]').val();
+        $.ajax({
+                type: 'POST',
+                url: '/user/' + id,
+                dataType: 'json',
+                data: JSON.stringify(obj),
+                contentType : 'application/json',
+                success: function(data, status, response) {
+                    console.log(data);
+                    console.log(response);
+                    nextPrev(1);
                 },
                 error: function(){
                     console.log("Error Occured");
