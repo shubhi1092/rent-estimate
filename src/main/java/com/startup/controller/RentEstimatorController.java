@@ -34,20 +34,20 @@ public class RentEstimatorController {
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody User user, UriComponentsBuilder builder, HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
-        
+
         Validator validator = new EmailValidatorImpl();
         boolean isValid = validator.validate(user.getEmailAddress());
         JsonObject jsonObject = new JsonObject();
         if(!isValid) {
             jsonObject.addProperty("message", "Error");
-            return new ResponseEntity<JsonObject>(jsonObject, headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(jsonObject.toString(), headers, HttpStatus.BAD_REQUEST);
         }
 
         validator = new PhoneValidatorImpl();
         isValid = validator.validate(user.getPhoneNumber());
         if(!isValid) {
             jsonObject.addProperty("message", "Error");
-            return new ResponseEntity<JsonObject>(jsonObject, headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(jsonObject.toString(), headers, HttpStatus.BAD_REQUEST);
         }
 
         user.setIpAddress(request.getRemoteAddr());
@@ -55,7 +55,7 @@ public class RentEstimatorController {
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(id).toUri());
 
         jsonObject.addProperty("message", "Success");
-        return new ResponseEntity<JsonObject>(jsonObject, headers, HttpStatus.CREATED);
+        return new ResponseEntity<String>(jsonObject.toString(), headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
@@ -81,6 +81,6 @@ public class RentEstimatorController {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("message", "Success");
         jsonObject.addProperty("estimatedRent", existingUser.getEstimatedRent().toString());
-        return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
+        return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);
     }
 }
