@@ -50,12 +50,12 @@ public class ZillowImpl {
                     rentRange = new RentRange(currency, rentEstimateLowerBound.intValue(), rentEstimateUpperBound.intValue());
                 }
             } else {
-                throw new Exception(String.format("Error: {}", con.getResponseMessage()));
+                throw new Exception(String.format("Error: %s", con.getResponseMessage()));
             }
 
             con.disconnect();
         } catch(Exception e){
-            throw new Exception(String.format("Error: {}", e.getMessage()));
+            throw new Exception(String.format("Error: %s", e.getMessage()));
         }
 
         return rentRange;

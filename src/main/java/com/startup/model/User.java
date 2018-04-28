@@ -31,6 +31,7 @@ public class User {
                 "<th>IP</th>" +
                 "<th>Email Address</th>" +
                 "<th>Address</th>" +
+                "<th>Zipcode</th>" +
                 "<th>Estimated Rent</th>" +
                 "<th>Expected Rent</th>" +
                 "</tr>");
@@ -46,6 +47,9 @@ public class User {
         buf.append("</td>");
         buf.append("<td>");
         buf.append(address);
+        buf.append("</td>");
+        buf.append("<td>");
+        buf.append(zipcode);
         buf.append("</td>");
         buf.append("<td>");
         buf.append(estimatedRent);

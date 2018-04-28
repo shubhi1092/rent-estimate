@@ -134,7 +134,8 @@ function showTab(n) {
                     nextPrev(1);
                 },
                 error: function(data, status, response){
-                    console.log("Error Occured");
+                    console.log(data);
+                    console.log(response);
                     if (data.error != null) {
                         alert(data.error);
                     }
