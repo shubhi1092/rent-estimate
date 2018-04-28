@@ -74,10 +74,11 @@ public class RentEstimatorController {
         if(user.getExpectedRent() != null) {
             existingUser.setExpectedRent(user.getExpectedRent());
             userService.updateUser(existingUser);
+
+            // Send updates to user
+            Sendgrid.sendEmail(existingUser);
         }
 
-        // Send updates to user
-        Sendgrid.sendEmail(existingUser);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("message", "Success");
