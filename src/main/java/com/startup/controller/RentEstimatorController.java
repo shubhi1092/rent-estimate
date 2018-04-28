@@ -62,13 +62,21 @@ public class RentEstimatorController {
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) {
         User existingUser = userService.getUser(id);
+        JsonObject jsonObject = new JsonObject();
+
         if(user.getAddress() != null) {
             existingUser.setAddress(user.getAddress());
             userService.updateUser(existingUser);
             RentEstimator estimator = new RentEstimatorImpl();
-            RentRange range = estimator.estimate(user.getAddress(), user.getZipcode());
-            existingUser.setEstimatedRent(range);
-            userService.updateUser(existingUser);
+            try {
+                RentRange range = estimator.estimate(user.getAddress(), user.getZipcode());
+                existingUser.setEstimatedRent(range);
+                userService.updateUser(existingUser);
+            } catch (Exception e) {
+                jsonObject.addProperty("message", "Error");
+                jsonObject.addProperty("error", e.getMessage());
+                return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.BAD_REQUEST);
+            }
         }
 
         if(user.getExpectedRent() != null) {
@@ -79,8 +87,6 @@ public class RentEstimatorController {
             Sendgrid.sendEmail(existingUser);
         }
 
-
-        JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("message", "Success");
         jsonObject.addProperty("estimatedRent", existingUser.getEstimatedRent().toString());
         return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);

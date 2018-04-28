@@ -133,8 +133,11 @@ function showTab(n) {
                     document.getElementById("estimatedRent").value = data.estimatedRent;
                     nextPrev(1);
                 },
-                error: function(){
+                error: function(data, status, response){
                     console.log("Error Occured");
+                    if (data.error != null) {
+                        alert(data.error);
+                    }
                 }
             });
         };

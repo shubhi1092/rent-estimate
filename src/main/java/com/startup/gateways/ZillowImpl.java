@@ -18,7 +18,7 @@ public class ZillowImpl {
     private static final String zwsID = "X1-ZWz1gcwe19m96z_89sjr";
     private static final String baseUrl = "http://www.zillow.com/webservice/GetSearchResults.htm";
 
-    public RentRange fetchRentEstimate(String address, int zipcode){
+    public RentRange fetchRentEstimate(String address, int zipcode) throws Exception{
         RentRange rentRange = null;
         try {
             String url = String.format("%s?zws-id=%s&address=%s&citystatezip=%d&rentzestimate=true", baseUrl, zwsID, URLEncoder.encode(address, "UTF-8"), zipcode);
@@ -49,10 +49,13 @@ public class ZillowImpl {
                     Currency currency = convertZillowCurrencyToCurrency(amount.getCurrency());
                     rentRange = new RentRange(currency, rentEstimateLowerBound.intValue(), rentEstimateUpperBound.intValue());
                 }
+            } else {
+                throw new Exception(String.format("Error: {}", con.getResponseMessage()));
             }
 
             con.disconnect();
         } catch(Exception e){
+            throw new Exception(String.format("Error: {}", e.getMessage()));
         }
 
         return rentRange;
