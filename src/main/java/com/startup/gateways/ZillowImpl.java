@@ -18,10 +18,10 @@ public class ZillowImpl {
     private static final String zwsID = "X1-ZWz1gcwe19m96z_89sjr";
     private static final String baseUrl = "http://www.zillow.com/webservice/GetSearchResults.htm";
 
-    public RentRange fetchRentEstimate(String address){
+    public RentRange fetchRentEstimate(String address, int zipcode){
         RentRange rentRange = null;
         try {
-            String url = String.format("%s?zws-id=%s&address=%s&citystatezip=%s&rentzestimate=true", baseUrl, zwsID, URLEncoder.encode(address, "UTF-8"), "94105");
+            String url = String.format("%s?zws-id=%s&address=%s&citystatezip=%d&rentzestimate=true", baseUrl, zwsID, URLEncoder.encode(address, "UTF-8"), zipcode);
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");

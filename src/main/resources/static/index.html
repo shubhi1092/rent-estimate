@@ -45,6 +45,9 @@
 
         <label for="address"><b>Address</b></label>
         <input oninput="this.className = ''" type="text" placeholder="Address" name="address" required><br>
+
+        <label for="zipcode"><b>Zipcode</b></label>
+        <input oninput="this.className = ''" type="text" placeholder="Zipcode" name="zipcode" required><br>
     </div>
     <div class="tab">
         <h1>Sign Up</h1>
@@ -117,6 +120,7 @@ function showTab(n) {
     document.getElementById("nextBtn").onclick = function() {
         var obj = new Object();
         obj.address = $('input[name="address"]').val();
+        obj.zipcode = $('input[name="zipcode"]').val();
         $.ajax({
                 type: 'PUT',
                 url: '/user/' +  $('input[name="userId"]').val(),

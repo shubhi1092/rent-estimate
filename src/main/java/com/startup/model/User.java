@@ -8,6 +8,7 @@ public class User {
     private String emailAddress;
     private String phoneNumber;
     private String address;
+    private int zipcode;
     private RentRange estimatedRent;
     private RentRange expectedRent;
 
@@ -114,6 +115,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
     }
 
     public RentRange getEstimatedRent() {

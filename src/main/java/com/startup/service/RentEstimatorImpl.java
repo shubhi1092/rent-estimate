@@ -6,9 +6,9 @@ import org.springframework.lang.NonNull;
 
 public class RentEstimatorImpl implements RentEstimator {
     @Override
-    public RentRange estimate(@NonNull String address) {
+    public RentRange estimate(@NonNull String address, @NonNull int zipcode) {
         ZillowImpl zapi = new ZillowImpl();
-        RentRange rentRange = zapi.fetchRentEstimate(address);
+        RentRange rentRange = zapi.fetchRentEstimate(address, zipcode);
 
         return rentRange;
     }
