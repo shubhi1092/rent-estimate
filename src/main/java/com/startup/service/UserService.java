@@ -7,5 +7,4 @@ public interface UserService {
     long saveUser(User user);
     boolean updateUser(User user);
     User getUser(long id);
-    List<User> getAllUsers();
 }

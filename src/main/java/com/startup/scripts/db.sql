@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS users(
     email_address VARCHAR(50),
     phone_number VARCHAR(20),
     address VARCHAR(500),
+    zipcode INT,
     estimated_rent_currency VARCHAR(10),
     estimated_rent_lower INT,
     estimated_rent_upper INT,
