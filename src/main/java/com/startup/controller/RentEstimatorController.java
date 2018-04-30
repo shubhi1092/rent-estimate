@@ -40,6 +40,7 @@ public class RentEstimatorController {
         JsonObject jsonObject = new JsonObject();
         if(!isValid) {
             jsonObject.addProperty("message", "Error");
+            jsonObject.addProperty("error", "Invalid Email Address");
             return new ResponseEntity<String>(jsonObject.toString(), headers, HttpStatus.BAD_REQUEST);
         }
 
@@ -47,6 +48,7 @@ public class RentEstimatorController {
         isValid = validator.validate(user.getPhoneNumber());
         if(!isValid) {
             jsonObject.addProperty("message", "Error");
+            jsonObject.addProperty("error", "Invalid Phone Number");
             return new ResponseEntity<String>(jsonObject.toString(), headers, HttpStatus.BAD_REQUEST);
         }
 

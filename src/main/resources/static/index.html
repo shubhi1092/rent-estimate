@@ -110,8 +110,12 @@ function showTab(n) {
                     document.getElementById("userId").value = data.id;
                     nextPrev(1);
                 },
-                error: function(){
-                    console.log("Error Occured");
+                error: function(data, status, response){
+                    console.log(data);
+                    console.log(response);
+                    if (data.responseJSON.error != null) {
+                        alert(data.responseJSON.error);
+                    }
                 }
             });
         };
@@ -136,8 +140,8 @@ function showTab(n) {
                 error: function(data, status, response){
                     console.log(data);
                     console.log(response);
-                    if (data.error != null) {
-                        alert(data.error);
+                    if (data.responseJSON.error != null) {
+                        alert('Please check the address!');
                     }
                 }
             });
