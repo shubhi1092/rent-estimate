@@ -68,6 +68,7 @@ public class RentEstimatorController {
 
         if(user.getAddress() != null) {
             existingUser.setAddress(user.getAddress());
+            existingUser.setZipcode(user.getZipcode());
             userService.updateUser(existingUser);
             RentEstimator estimator = new RentEstimatorImpl();
             try {

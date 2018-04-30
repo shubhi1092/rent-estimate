@@ -36,7 +36,6 @@
         <label for="phoneNumber"><b>Phone Number</b></label>
         <input oninput="this.className = ''" type="text" placeholder="Phone Number" name="phoneNumber" required><br>
 
-        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
     </div>
     <div class="tab">
         <h1>Sign Up</h1>
@@ -141,7 +140,7 @@ function showTab(n) {
                     console.log(data);
                     console.log(response);
                     if (data.responseJSON.error != null) {
-                        alert('Please check the address!');
+                        alert('Please check the address or zipcode!');
                     }
                 }
             });
